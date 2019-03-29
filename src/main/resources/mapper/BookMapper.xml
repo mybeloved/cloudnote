@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：命名空间，用来区分同名的sql id：在同一个文件里唯一 parameterType：参数类型 resultType：返回的结果类型 
+	#{ename}：ename是Emp的属性(mybatis会利用反射机制读取emp对象的属性值) 注意：如果使用Mapper映射器，namespace必须等于Mapper接口的完整的名称 -->
+<mapper namespace="com.tedu.cloudnote.dao.BookDao">
+	<insert id="save" parameterType="com.tedu.cloudnote.entity.Book">
+		insert into cn_notebook
+		(cn_notebook_id, cn_user_id, cn_notebook_type_id, cn_notebook_name,
+		cn_notebook_createtime) values
+		(#{cn_notebook_id},#{cn_user_id},#{cn_notebook_type_id},#{cn_notebook_name},#{cn_notebook_createtime})
+	</insert>
+	<select id="findByUserId" parameterType="string"
+		resultType="com.tedu.cloudnote.entity.Book">
+		select * from cn_notebook where cn_user_id = #{userId}
+	</select>
+	<!-- <insert id="save" parameterType="com.tedu.cloudnote.entity.User"> insert 
+		into cn_user(cn_user_id, cn_user_name, cn_user_password, cn_user_desc) values 
+		(#{cn_user_id},#{cn_user_name},#{cn_user_password},#{cn_user_desc}) </insert> -->
+	<!-- <insert id="save" parameterType="entity.Emp"> insert into emp_whx values(emp_seq.nextval, 
+		#{ename}, #{age}) </insert> <select id="findAll" resultType="entity.Emp"> 
+		select id, ename, age from emp_whx </select> <update id="update" parameterType="entity.Emp"> 
+		update emp_whx set ename = #{ename}, age = #{age} where id = #{id} </update> 
+		<delete id="delete" parameterType="int"> delete from emp_whx where id = #{id} 
+		</delete> 返回Map类型的值 <select id="findById2" parameterType="int" resultType="map"> 
+		select * from emp_whx where id = #{id} </select> 解决属性名与字段名不一致的情况 <select 
+		id="findById3" parameterType="int" resultMap="emp2Map"> select * from emp_whx 
+		where id = #{id} </select> 告诉mybatis如何将字段名与实体类的属性名对应起来：只需要将不一样的列出来即可，property：实体类的属性名 
+		column：字段名 <resultMap type="entity.Emp2" id="emp2Map"> <result property="empNo" 
+		column="id" /> <result property="name" column="ename" /> </resultMap> -->
+</mapper>

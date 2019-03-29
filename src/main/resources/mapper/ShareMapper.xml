@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：命名空间，用来区分同名的sql id：在同一个文件里唯一 parameterType：参数类型 resultType：返回的结果类型 
+	#{ename}：ename是Emp的属性(mybatis会利用反射机制读取emp对象的属性值) 注意：如果使用Mapper映射器，namespace必须等于Mapper接口的完整的名称 -->
+<mapper namespace="com.tedu.cloudnote.dao.ShareDao">
+	<select id="findById" parameterType="string"
+		resultType="com.tedu.cloudnote.entity.Share">
+		select * from cn_share where cn_share_id = #{shareId}
+	</select>
+	<select id="findLikeTitle" parameterType="map"
+		resultType="com.tedu.cloudnote.entity.Share">
+		select * from cn_share where cn_share_title like #{keyword}
+		limit #{begin}, 5
+	</select>
+	<insert id="save"
+		parameterType="com.tedu.cloudnote.entity.Share">
+		insert into cn_share
+		(cn_share_id, cn_share_title,
+		cn_share_body, cn_note_id) values
+		(#{cn_share_id}, #{cn_share_title},
+		#{cn_share_body}, #{cn_note_id})
+	</insert>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：命名空间，用来区分同名的sql id：在同一个文件里唯一 parameterType：参数类型 resultType：返回的结果类型 
+	#{ename}：ename是Emp的属性(mybatis会利用反射机制读取emp对象的属性值) 注意：如果使用Mapper映射器，namespace必须等于Mapper接口的完整的名称 -->
+<mapper namespace="com.tedu.cloudnote.dao.UserDao">
+	<select id="findByName" parameterType="string"
+		resultType="com.tedu.cloudnote.entity.User">
+		select * from cn_user where cn_user_name = #{name}
+	</select>
+	<insert id="save" parameterType="com.tedu.cloudnote.entity.User">
+		insert into cn_user(cn_user_id,
+		cn_user_name, cn_user_password, cn_user_desc)
+		values
+		(#{cn_user_id},#{cn_user_name},#{cn_user_password},#{cn_user_desc})
+	</insert>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：命名空间，用来区分同名的sql id：在同一个文件里唯一 parameterType：参数类型 resultType：返回的结果类型 
+	#{ename}：ename是Emp的属性(mybatis会利用反射机制读取emp对象的属性值) 注意：如果使用Mapper映射器，namespace必须等于Mapper接口的完整的名称 -->
+<mapper namespace="com.tedu.cloudnote.dao.EmpDao">
+	<insert id="save" useGeneratedKeys="true" keyProperty="no"
+		parameterType="com.tedu.cloudnote.entity.Emp">
+		insert into t_emp (name) values (#{name})
+	</insert>
+	<insert id="oracleSave"
+		parameterType="com.tedu.cloudnote.entity.Emp">
+		<!-- 执行select查询出序列值，然后放入到Emp参数对象的no属性中，最后再执行insert -->
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select
+			emp_seq.nextval from dual
+		</selectKey>
+		insert into t_emp (no, name) values (#{no}, #{name})
+	</insert>
+</mapper>
